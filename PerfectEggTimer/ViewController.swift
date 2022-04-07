@@ -5,9 +5,12 @@
 //  Created by Vladimir Fibe on 11.02.2022.
 //
 
-import UIKit
+import SwiftUI
+import AVFoundation
 
 class ViewController: UIViewController {
+  var counter = 60
+  var timer: Timer?
   let titleLabel: UILabel = {
     let label = UILabel()
     label.text = "How do you like your eggs?"
@@ -17,44 +20,40 @@ class ViewController: UIViewController {
     return label
   }()
   
-  let softButton: UIButton = {
-    let button = UIButton(type: .system)
-    return button
-  }()
-  
-  let mediumButton: UIButton = {
-    let button = UIButton(type: .system)
-    return button
-  }()
-  
-  let hardButton: UIButton = {
-    let button = UIButton(type: .system)
-    return button
-  }()
-  
+  let softButton = UIButton(type: .system)
+  let mediumButton  = UIButton(type: .system)
+  let hardButton = UIButton(type: .system)
+  var player: AVAudioPlayer!
+
+  func playSound() {
+      guard let url = Bundle.main.url(forResource: "alarm", withExtension: "mp3") else { return }
+    player = try! AVAudioPlayer(contentsOf: url)
+    player.play()
+  }
   override func viewDidLoad() {
     super.viewDidLoad()
     setupUI()
   }
-  
   
   func setupUI() {
     view.backgroundColor = #colorLiteral(red: 0.7960784314, green: 0.9490196078, blue: 0.9882352941, alpha: 1) // CBF2FC
     let eggs = [softButton, mediumButton, hardButton]
     let titles = ["soft", "medium", "hard"]
     for index in eggs.indices {
-      eggs[index].setImage(UIImage(named: titles[index])?.withRenderingMode(.alwaysOriginal), for: .normal)
-      eggs[index].tag = index
-      eggs[index].addTarget(self, action: #selector(hardnessSelected), for: .touchUpInside)
+      let button = eggs[index]
+      button.setImage(UIImage(named: titles[index])?.withRenderingMode(.alwaysOriginal), for: .normal)
+      button.tag = index
+      button.addTarget(self, action: #selector(hardnessSelected), for: .touchUpInside)
+      button.imageView?.contentMode = .scaleAspectFit
     }
     let eggStack = UIStackView(arrangedSubviews: eggs)
     eggStack.axis = .horizontal
-    eggStack.alignment = .center
+    eggStack.alignment = .fill
     eggStack.distribution = .fillEqually
     eggStack.spacing = 10
     let stack = UIStackView(arrangedSubviews: [titleLabel, eggStack])
     stack.axis = .vertical
-    stack.alignment = .leading
+    stack.alignment = .center
     stack.distribution = .fillEqually
     view.addSubview(stack)
     stack.translatesAutoresizingMaskIntoConstraints = false
@@ -65,24 +64,47 @@ class ViewController: UIViewController {
   }
   
   @objc func hardnessSelected(_ sender: UIButton) {
-    if sender.tag == 0 {
-      print("Soft")
-    } else if sender.tag == 1 {
-      print("Medium")
-    } else {
-      print("Hard")
+    let times = [10, 42, 72]
+    guard sender.tag >= 0 && sender.tag < times.count  else { return }
+    counter = times[sender.tag]
+    if timer != nil {
+      timer?.invalidate()
     }
-    loveCalculator()
+    timer = Timer.scheduledTimer(timeInterval: 1,
+                                 target: self,
+                                 selector: #selector(updateCounter),
+                                 userInfo: nil,
+                                 repeats: true)
   }
-  func loveCalculator() {
-    let loveScore = Int.random(in: 0...100)
-    if loveScore >= 80 {
-      print("You love each other like Kanye loves Kanye")
-    } else if loveScore >= 40 {
-      print("You go together like Coke and Mentos")
+  @objc func updateCounter() {
+    if counter > 0 {
+      counter -= 1
+      titleLabel.text = "\(counter) seconds"
     } else {
-      print("You'll be forever alone")
+      timer?.invalidate()
+      titleLabel.text = "Ready"
+      playSound()
     }
+  }
+}
+
+struct SwiftUIController: UIViewControllerRepresentable {
+  typealias UIViewControllerType = ViewController
+  
+  func makeUIViewController(context: Context) -> UIViewControllerType {
+    let viewController = UIViewControllerType()
+    return viewController
+  }
+  
+  func updateUIViewController(_ uiViewController: UIViewControllerType, context: Context) {
+    
+  }
+}
+
+struct SwiftUIController_Previews: PreviewProvider {
+  static var previews: some View {
+    SwiftUIController()
+      .edgesIgnoringSafeArea(.all)
   }
 }
 
