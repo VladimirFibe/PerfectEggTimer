@@ -6,7 +6,6 @@ class ViewController: UIViewController {
         $0.progress = 0.5
         $0.progressTintColor = #colorLiteral(red: 1, green: 0.8288107514, blue: 0, alpha: 1)
         $0.trackTintColor = .darkGray
-        
         return $0
     }(UIProgressView())
     
