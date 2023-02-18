@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		029B8D9129A0E55100DD9B0E /* 1.png in Resources */ = {isa = PBXBuildFile; fileRef = 029B8D9029A0E55100DD9B0E /* 1.png */; };
 		1FB9EE5D27B5D32F004EF545 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FB9EE5C27B5D32F004EF545 /* AppDelegate.swift */; };
 		1FB9EE5F27B5D32F004EF545 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FB9EE5E27B5D32F004EF545 /* SceneDelegate.swift */; };
 		1FB9EE6127B5D32F004EF545 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FB9EE6027B5D32F004EF545 /* ViewController.swift */; };
@@ -16,6 +17,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		029B8D8E29A0E52300DD9B0E /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		029B8D9029A0E55100DD9B0E /* 1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 1.png; sourceTree = "<group>"; };
 		1FB9EE5927B5D32F004EF545 /* PerfectEggTimer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PerfectEggTimer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1FB9EE5C27B5D32F004EF545 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1FB9EE5E27B5D32F004EF545 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -37,9 +40,19 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		029B8D8F29A0E53D00DD9B0E /* img */ = {
+			isa = PBXGroup;
+			children = (
+				029B8D9029A0E55100DD9B0E /* 1.png */,
+			);
+			path = img;
+			sourceTree = "<group>";
+		};
 		1FB9EE5027B5D32F004EF545 = {
 			isa = PBXGroup;
 			children = (
+				029B8D8E29A0E52300DD9B0E /* README.md */,
+				029B8D8F29A0E53D00DD9B0E /* img */,
 				1FB9EE5B27B5D32F004EF545 /* PerfectEggTimer */,
 				1FB9EE5A27B5D32F004EF545 /* Products */,
 			);
@@ -126,6 +139,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1FB9EE7127B5D509004EF545 /* alarm.mp3 in Resources */,
+				029B8D9129A0E55100DD9B0E /* 1.png in Resources */,
 				1FB9EE6927B5D330004EF545 /* LaunchScreen.storyboard in Resources */,
 				1FB9EE6627B5D330004EF545 /* Assets.xcassets in Resources */,
 			);
